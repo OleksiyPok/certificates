@@ -2,7 +2,7 @@ const menuItems = document.querySelectorAll(".menu-item");
 const submenuItems = document.querySelectorAll(".submenu-item");
 const viewer = document.getElementById("viewer");
 
-let selectedSrc = "./assets/Certificates/Cpp/Certificate_CPP_Pro.png";
+let selectedSrc = "./assets/certificates/Cpp/Certificate_Cpp_Pro.png";
 let scale = 1;
 
 menuItems.forEach((item) => {
