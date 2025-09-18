@@ -13,6 +13,8 @@ menuItems.forEach((item) => {
 
 submenuItems.forEach((item) => {
   item.addEventListener("click", () => {
+    submenuItems.forEach((i) => i.classList.remove("active"));
+    item.classList.add("active");
     selectedSrc = item.getAttribute("data-src");
     scale = 1;
     showImage();
@@ -20,7 +22,7 @@ submenuItems.forEach((item) => {
 });
 
 function showImage() {
-  viewer.innerHTML = `<img src="${selectedSrc}" alt="Certificate" style="transform: scale(${scale})">`;
+  viewer.innerHTML = `<img src="${selectedSrc}" alt="Certificate" style="transform: scale(${scale}); max-width: 100%; max-height: 100%; object-fit: contain;">`;
 }
 
 viewer.addEventListener("wheel", (e) => {
@@ -33,5 +35,17 @@ viewer.addEventListener("wheel", (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  const certificatesMenu = Array.from(menuItems).find((item) => item.textContent.trim() === "Certificates");
+
+  if (certificatesMenu) {
+    certificatesMenu.classList.add("active");
+    const firstCert = certificatesMenu.nextElementSibling?.querySelector(".submenu-item");
+    if (firstCert) {
+      submenuItems.forEach((i) => i.classList.remove("active"));
+      firstCert.classList.add("active");
+      selectedSrc = firstCert.getAttribute("data-src");
+    }
+  }
+
   showImage();
 });
