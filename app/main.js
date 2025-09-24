@@ -50,6 +50,15 @@ function showDocument() {
       img.style.transform = `scale(${scale})`;
     };
   }
+
+  const zoomControls = document.getElementById("zoomControls");
+  if (zoomControls) {
+    if (selectedSrc.toLowerCase().endsWith(".pdf")) {
+      zoomControls.style.display = "none";
+    } else {
+      zoomControls.style.display = "flex";
+    }
+  }
 }
 
 function updateURL(src) {
@@ -101,10 +110,15 @@ function injectControls() {
   const controls = document.createElement("div");
   controls.className = "sidebar-controls";
   controls.innerHTML = `
-    <button id="copyLink" title="Copy link">🔗</button>
-    <button id="printDoc" title="Print document">🖨️</button>
-    <button id="zoomIn" title="Zoom in">➕</button>
-    <button id="zoomOut" title="Zoom out">➖</button>
+    <div class="control-row" id="zoomControls">
+      <button id="zoomIn" title="Zoom in">➕</button>
+      <button id="zoomOut" title="Zoom out">➖</button>
+    </div>
+    <hr class="divider">
+    <div class="control-row fixed-row">
+      <button id="copyLink" title="Copy link">🔗</button>
+      <button id="printDoc" title="Print document">🖨️</button>
+    </div>
   `;
   sidebar.appendChild(controls);
 
