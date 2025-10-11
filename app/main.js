@@ -24,13 +24,21 @@ submenuItems.forEach((item) => {
 
 function showDocument() {
   viewer.innerHTML = "";
+  const isPDF = selectedSrc.toLowerCase().endsWith(".pdf");
+  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
-  if (selectedSrc.toLowerCase().endsWith(".pdf")) {
+  if (isPDF && isMobile) {
+    window.open(selectedSrc + "#zoom=page-fit", "_blank");
+    return;
+  }
+
+  if (isPDF) {
     const iframe = document.createElement("iframe");
-    iframe.src = selectedSrc;
+    iframe.src = selectedSrc + "#zoom=page-fit";
     iframe.style.width = "100%";
     iframe.style.height = "100%";
     iframe.style.border = "none";
+    iframe.style.display = "block";
     viewer.appendChild(iframe);
   } else {
     const img = document.createElement("img");
@@ -39,25 +47,20 @@ function showDocument() {
     img.style.maxWidth = "100%";
     img.style.maxHeight = "100%";
     img.style.objectFit = "contain";
+    img.style.transformOrigin = "center center";
+    img.style.transform = "scale(1)";
     viewer.appendChild(img);
 
     img.onload = () => {
-      const vw = viewer.clientWidth;
-      const vh = viewer.clientHeight;
-      const iw = img.naturalWidth;
-      const ih = img.naturalHeight;
-      scale = Math.min(vw / iw, vh / ih);
-      img.style.transform = `scale(${scale})`;
+      scale = 1;
+      img.style.transform = "scale(1)";
+      viewer.scrollTo(0, 0);
     };
   }
 
   const zoomControls = document.getElementById("zoomControls");
   if (zoomControls) {
-    if (selectedSrc.toLowerCase().endsWith(".pdf")) {
-      zoomControls.style.display = "none";
-    } else {
-      zoomControls.style.display = "flex";
-    }
+    zoomControls.style.display = isPDF ? "none" : "flex";
   }
 }
 
@@ -144,6 +147,14 @@ function injectControls() {
     const img = viewer.querySelector("img");
     if (img) {
       scale = Math.min(scale * 1.1, 5);
+      img.style.transform = `scale(${scale})`;
+    }
+  });
+
+  document.getElementById("zoomOut").addEventListener("click", () => {
+    const img = viewer.querySelector("img");
+    if (img) {
+      scale = Math.max(scale * 0.9, 0.1);
       img.style.transform = `scale(${scale})`;
     }
   });
