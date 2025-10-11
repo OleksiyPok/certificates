@@ -159,8 +159,8 @@ function injectControls() {
     }
   });
 
-  document.getElementById("toggleSidebar").addEventListener("click", () => {
-    document.querySelector(".sidebar").classList.toggle("hidden");
+  document.getElementById("sidebarToggle").addEventListener("click", () => {
+    document.getElementById("sidebar").classList.toggle("hidden");
     document.body.classList.toggle("sidebar-hidden");
   });
 }

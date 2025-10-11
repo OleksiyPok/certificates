@@ -21,24 +21,6 @@ body {
   display: none;
 }
 
-.toggle-sidebar {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
-  background: #34495e;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  font-size: 18px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-body.sidebar-hidden .main {
-  flex: 1 1 100%;
-}
-
 .profile-photo {
   width: 120px;
   height: 120px;
@@ -134,6 +116,32 @@ body.sidebar-hidden .main {
   object-fit: contain;
   transition: transform 0.2s ease;
   cursor: grab;
+}
+
+/* === Новая кнопка-стрелка между панелью и контентом === */
+.sidebar-toggle {
+  width: 20px;
+  background-color: #34495e;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 18px;
+  user-select: none;
+}
+
+.sidebar-toggle:hover {
+  background-color: #2c3e50;
+}
+
+.sidebar-toggle::before {
+  content: "◀";
+}
+
+body.sidebar-hidden .sidebar-toggle::before {
+  content: "▶";
 }
 
 .sidebar-controls {
