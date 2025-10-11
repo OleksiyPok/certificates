@@ -17,6 +17,28 @@ body {
   position: relative;
 }
 
+.sidebar.hidden {
+  display: none;
+}
+
+.toggle-sidebar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background: #34495e;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+body.sidebar-hidden .main {
+  flex: 1 1 100%;
+}
+
 .profile-photo {
   width: 120px;
   height: 120px;

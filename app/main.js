@@ -148,11 +148,8 @@ function injectControls() {
     }
   });
 
-  document.getElementById("zoomOut").addEventListener("click", () => {
-    const img = viewer.querySelector("img");
-    if (img) {
-      scale = Math.max(scale * 0.9, 0.1);
-      img.style.transform = `scale(${scale})`;
-    }
+  document.getElementById("toggleSidebar").addEventListener("click", () => {
+    document.querySelector(".sidebar").classList.toggle("hidden");
+    document.body.classList.toggle("sidebar-hidden");
   });
 }
